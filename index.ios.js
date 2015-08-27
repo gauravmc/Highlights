@@ -7,15 +7,16 @@
 'use strict';
 
 import React from 'react-native';
+import TimerMixin from 'react-timer-mixin';
 
 var {
   AppRegistry,
   StyleSheet,
   Text,
   View,
-  Component,
   ListView,
-  Image
+  Image,
+  ActivityIndicatorIOS
 } = React;
 
 var API_KEY = '7waqfqbprs7pajbz28mqf6vz';
@@ -24,26 +25,31 @@ var PAGE_SIZE = 25;
 var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
 var REQUEST_URL = API_URL + PARAMS;
 
-class Highlights extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+var Highlights = React.createClass({
+  mixins: [TimerMixin],
+
+  getInitialState() {
+    return {
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
       loaded: false
     };
-  }
+  },
 
   componentDidMount() {
     this.fetchData();
-  }
+  },
 
   renderLoadingView() {
     return (
       <View style={styles.container}>
-        <Text>Loading movies...</Text>
+        <ActivityIndicatorIOS
+          animating={true}
+          style={[styles.centering, {height: 80}]}
+          size="large"
+        />
       </View>
     );
-  }
+  },
 
   renderMovie(movie) {
     return (
@@ -55,7 +61,7 @@ class Highlights extends Component {
         </View>
       </View>
     );
-  }
+  },
 
   fetchData() {
     fetch(REQUEST_URL)
@@ -66,8 +72,9 @@ class Highlights extends Component {
           loaded: true
         });
       })
+      .catch((error) => {console.warn(error);})
       .done();
-  }
+  },
 
   render() {
     if(!this.state.loaded) {
@@ -82,7 +89,7 @@ class Highlights extends Component {
       );
     }
   }
-}
+});
 
 var styles = StyleSheet.create({
   container: {
@@ -110,6 +117,10 @@ var styles = StyleSheet.create({
   listView: {
     paddingTop: 20,
     backgroundColor: '#F5FCFF'
+  },
+  centering: {
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 

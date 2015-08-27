@@ -10,7 +10,8 @@
     "babel-eslint": "^4.1.0",
     "eslint": "^1.2.1",
     "eslint-plugin-react": "^3.3.0",
-    "flow": "^0.2.3",    
-    "react-native": "^0.10.0"
+    "flow": "^0.2.3",
+    "react-native": "^0.10.0",
+    "react-timer-mixin": "^0.13.2"
   }
 }
