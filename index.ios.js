@@ -1,23 +1,33 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
+ *
+ * @flow
  */
 'use strict';
 
-var React = require('react-native');
+import React from 'react-native';
+
 var {
   AppRegistry,
   StyleSheet,
   Text,
   View,
+  Component
 } = React;
 
-var Highlights = React.createClass({
-  render: function() {
+class Highlights extends Component
+{
+  constructor(props: Object) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Welcome to React Native!!
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
@@ -29,25 +39,25 @@ var Highlights = React.createClass({
       </View>
     );
   }
-});
+}
 
 var styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
-  },
+    marginBottom: 5
+  }
 });
 
 AppRegistry.registerComponent('Highlights', () => Highlights);
