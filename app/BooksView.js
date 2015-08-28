@@ -5,8 +5,8 @@ import TimerMixin from 'react-timer-mixin';
 
 var {
   StyleSheet,
-  Text,
   View,
+  TouchableHighlight,
   ListView,
   Image,
   ActivityIndicatorIOS
@@ -28,18 +28,6 @@ var BooksView = React.createClass({
 
   componentDidMount() {
     this.fetchData(REQUEST_URL);
-  },
-
-  renderBook(book) {
-    return (
-      <View style={styles.container}>
-        <Image style={styles.thumbnail} source={{uri: book.image_src}} />
-        <View style={styles.rightContainer}>
-          <Text style={styles.title}>{book.title}</Text>
-          <Text style={styles.year}>{book.author}</Text>
-        </View>
-      </View>
-    );
   },
 
   fetchData(url) {
@@ -66,6 +54,18 @@ var BooksView = React.createClass({
     }, 200);
   },
 
+  _renderRow(book, rowID: number) {
+    return (
+      <TouchableHighlight onPress={() => console.log(rowID)} underlayColor="transparent">
+        <View>
+          <View style={styles.row}>
+            <Image resizeMode={Image.resizeMode.contain} style={styles.thumb} source={{uri: book.image_src}} />
+          </View>
+        </View>
+      </TouchableHighlight>
+    );
+  },
+
   render() {
     if(!this.state.loaded) {
       return (
@@ -80,9 +80,10 @@ var BooksView = React.createClass({
     } else {
       return (
         <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderBook}
           style={styles.listView}
+          contentContainerStyle={styles.list}
+          dataSource={this.state.dataSource}
+          renderRow={this._renderRow}
         />
       );
     }
@@ -97,21 +98,6 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF'
   },
-  rightContainer: {
-    flex: 1
-  },
-  title: {
-    fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center'
-  },
-  year: {
-    textAlign: 'center'
-  },
-  thumbnail: {
-    width: 53,
-    height: 81
-  },
   listView: {
     paddingTop: 20,
     backgroundColor: '#F5FCFF'
@@ -119,6 +105,25 @@ var styles = StyleSheet.create({
   centering: {
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  list: {
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
+  row: {
+    justifyContent: 'center',
+    margin: 3,
+    marginTop: 20,
+    alignItems: 'center',
+    shadowRadius: 2,
+    shadowColor: 'black',
+    shadowOpacity: 0.2,
+    shadowOffset: {height: 0.5}
+  },
+  thumb: {
+    width: 100,
+    height: 100
   }
 });
 
