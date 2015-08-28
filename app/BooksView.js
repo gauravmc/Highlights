@@ -47,6 +47,11 @@ var BooksView = React.createClass({
         })
         .catch((error) => {console.warn(error);})
         .done(() => {
+          // this.props.navigator.push({
+          //   name: 'Highlights',
+          //   highlights: this.state.books[0].highlights,
+          //   sceneConfig: Navigator.SceneConfigs.FloatFromRight
+          // });
           if(this.state.next_book_index) {
             var index = this.state.next_book_index;
             var url = `${REQUEST_URL}?index=${index}`;
@@ -91,6 +96,7 @@ var BooksView = React.createClass({
         <ListView
           style={styles.listView}
           contentContainerStyle={styles.list}
+          automaticallyAdjustContentInsets={false}
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
         />
@@ -105,10 +111,10 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#ffffff'
   },
   listView: {
-    backgroundColor: '#bbbbbb'
+    backgroundColor: '#ffffff'
   },
   centering: {
     alignItems: 'center',

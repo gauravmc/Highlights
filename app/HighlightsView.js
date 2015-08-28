@@ -23,24 +23,25 @@ class HighlightsView extends Component {
 
   _renderRow(highlight) {
     return (
-      <View style={styles.row}>
-        <Text style={styles.rowDetailText}>
-          {highlight}
-        </Text>
-        <View style={styles.separator} />
+      <View style={styles.rowContainer}>
+        <View style={styles.row}>
+          <View style={styles.textContainer}>
+            <Text style={styles.rowDetailText}>{highlight}</Text>
+          </View>
+          <View style={styles.separator} />
+        </View>
       </View>
     );
   }
 
   render() {
     return (
-      <View style={styles.listContainer}>
-        <ListView
-          style={styles.listView}
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-        />
-      </View>
+      <ListView
+        style={styles.listView}
+        dataSource={this.state.dataSource}
+        automaticallyAdjustContentInsets={false}
+        renderRow={this._renderRow}
+      />
     );
   }
 }
@@ -51,21 +52,29 @@ var styles = StyleSheet.create({
   listView: {
     backgroundColor: '#eeeeee'
   },
+  rowContainer: {
+    flex: 1
+  },
   row: {
     backgroundColor: 'white',
-    justifyContent: 'center',
-    paddingHorizontal: 15,
-    paddingVertical: 8
+    justifyContent: 'center'
+  },
+  textContainer: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  rowDetailText: {
+    lineHeight: 20,
+    fontFamily: 'Cochin',
+    fontSize: 14,
+    fontWeight: '300',
+    color: '#333333'
   },
   separator: {
     height: 1 / PixelRatio.get(),
-    backgroundColor: '#bbbbbb',
-    marginLeft: 15
-  },
-  rowDetailText: {
-    fontSize: 15,
-    color: '#777777',
-    lineHeight: 20
+    backgroundColor: '#eeeeee'
   }
 });
 

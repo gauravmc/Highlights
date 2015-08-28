@@ -18,13 +18,14 @@ var {
   StyleSheet,
   Navigator,
   View,
+  PixelRatio,
   Text
 } = React;
 
 class Highlights extends Component {
   constructor(props) {
     super(props);
-    this.state = {loggedIn: false};
+    this.state = {loggedIn: true};
   }
 
   componentWillMount() {
@@ -48,24 +49,35 @@ class Highlights extends Component {
   renderScene(route, nav) {
     switch(route.name) {
     case 'Books':
-      return <BooksView navigator={nav} />;
+      return (
+        <View style={{flex: 1}}>
+          <View style={styles.separator} />
+          <BooksView navigator={nav} />
+        </View>
+      );
     case 'Highlights':
-      return <HighlightsView navigator={nav} highlights={route.highlights} />;
+      return (
+        <View style={{flex: 1}}>
+          <View style={styles.separator} />
+          <HighlightsView navigator={nav} highlights={route.highlights} />
+        </View>
+      );
     }
   }
 
   render() {
     if(this.state.loggedIn) {
       return (
-        <Navigator
-          style={styles.navBar}
-          initialRoute={{ name: 'Books'}}
-          navigationBar={
-            <Navigator.NavigationBar routeMapper={this._navBarRouteMapper} />
-          }
-          renderScene={this.renderScene}
-          sceneStyle={styles.scene}
-        />
+        <View style={styles.appContainer}>
+          <Navigator
+            style={styles.navBar}
+            initialRoute={{ name: 'Books'}}
+            navigationBar={
+              <Navigator.NavigationBar routeMapper={this._navBarRouteMapper} />
+            }
+            renderScene={this.renderScene}
+          />
+        </View>
       );
     } else {
       return (
@@ -78,17 +90,13 @@ class Highlights extends Component {
 }
 
 var styles = StyleSheet.create({
-  container: {
+  appContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#ffffff'
   },
   navBar: {
-    overflow: 'hidden',
     backgroundColor: 'white',
-    flex: 1
+    paddingTop: 65
   },
   navBarTitleText: {
     fontSize: 14,
@@ -96,9 +104,9 @@ var styles = StyleSheet.create({
     fontWeight: '500',
     marginVertical: 9
   },
-  scene: {
-    paddingTop: 60,
-    backgroundColor: '#eeeeee'
+  separator: {
+    height: 1 / PixelRatio.get(),
+    backgroundColor: '#bbbbbb'
   }
 });
 
