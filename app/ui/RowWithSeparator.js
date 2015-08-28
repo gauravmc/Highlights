@@ -6,7 +6,6 @@ var {
   Component,
   View,
   StyleSheet,
-  PropTypes,
   PixelRatio
 } = React;
 
@@ -16,7 +15,7 @@ class RowWithSeparator extends Component {
     return(
       <View style={styles.row}>
         {this.props.children}
-        <View style={styles.separator} />
+        <View style={[styles.separator, {backgroundColor: this.props.separatorColor}]} />
       </View>
     );
   }
@@ -28,13 +27,8 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   separator: {
-    height: 1 / PixelRatio.get(),
-    backgroundColor: '#eeeeee'
+    height: 1 / PixelRatio.get()
   }
 });
-
-RowWithSeparator.propTypes = {
-  children: PropTypes.object.isRequired
-};
 
 module.exports = RowWithSeparator;

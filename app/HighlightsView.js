@@ -31,12 +31,12 @@ class HighlightsView extends Component {
 
     return (
       <View style={styles.rowContainer}>
-        <RowWithSeparator>
+        <RowWithSeparator separatorColor={'#ffffff'}>
           <View style={styles.textContainer}>
             <Text style={styles.rowDetailText}>{highlight.text}</Text>
           </View>
         </RowWithSeparator>
-        <LikeShare highlightId={highlightId} onLike={this.onHighligtLike.bind(this)} liked={highlight.liked} />
+        <LikeShare highlightId={highlightId} highlightText={highlight.text} onLike={this.onHighligtLike.bind(this)} liked={highlight.liked} />
       </View>
     );
   }

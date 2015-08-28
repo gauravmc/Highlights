@@ -6,11 +6,15 @@ import RowWithSeparator from './ui/RowWithSeparator';
 var {
   Component,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  ActionSheetIOS
 } = React;
 
 var LIKE_IMAGE = 'https://dl.dropboxusercontent.com/u/45917215/highlights/like.png';
 var LIKED_IMAGE = 'https://dl.dropboxusercontent.com/u/45917215/highlights/liked.png';
+var SHARE_IMAGE = 'https://dl.dropboxusercontent.com/u/45917215/highlights/share2.png';
 
 class LikeShare extends Component {
   constructor(props) {
@@ -28,7 +32,7 @@ class LikeShare extends Component {
     }
   }
 
-  _onPressButton() {
+  _onLike() {
     var likeState;
     if(this.state.liked) {
       likeState = false;
@@ -41,21 +45,59 @@ class LikeShare extends Component {
 
   likeButtonStyle() {
     if(this.state.liked) {
-      return {width: 20, height: 20, tintColor: 'pink'};
+      return [styles.image, {tintColor: 'pink'}];
     } else {
-      return {width: 20, height: 20, tintColor: '#aaaaaa'};
+      return [styles.image, {tintColor: '#aaaaaa'}];
     }
+  }
+
+  showShareActionSheet() {
+    ActionSheetIOS.showShareActionSheetWithOptions({
+      message: this.props.highlightText
+    },
+    (error) => {
+      console.error(error);
+    },
+    (success, method) => {
+      var text;
+      if (success) {
+        text = `Shared via ${method}`;
+      } else {
+        text = 'You didn\'t share';
+      }
+      console.log(text);
+    });
   }
 
   render() {
     return (
-      <RowWithSeparator>
-        <TouchableOpacity onPress={() => this._onPressButton()}>
-          <Image style={this.likeButtonStyle()} source={{uri: this.buttonImage()}} />
-        </TouchableOpacity>
+      <RowWithSeparator separatorColor={'#eeeeee'}>
+        <View style={styles.row}>
+          <TouchableOpacity style={styles.button} onPress={() => this._onLike()}>
+            <Image style={this.likeButtonStyle()} source={{uri: this.buttonImage()}} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => this.showShareActionSheet()}>
+            <Image style={[styles.image, {tintColor: '#aaaaaa'}]} source={{uri: SHARE_IMAGE}} />
+          </TouchableOpacity>
+        </View>
       </RowWithSeparator>
     );
   }
 }
+
+var styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    paddingBottom: 5
+  },
+  button: {
+    paddingLeft: 80,
+    flex: 0.5
+  },
+  image: {
+    width: 15,
+    height: 15
+  }
+});
 
 module.exports = LikeShare;

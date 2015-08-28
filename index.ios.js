@@ -81,7 +81,7 @@ class Highlights extends Component {
       );
     } else {
       return (
-        <View style={styles.container}>
+        <View style={styles.appContainer}>
           <Login onLogin={(loggedIn) => this.setState({loggedIn})} />
         </View>
       );
