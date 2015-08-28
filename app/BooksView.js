@@ -69,11 +69,13 @@ var BooksView = React.createClass({
   render() {
     if(!this.state.loaded) {
       return (
-        <ActivityIndicatorIOS
-          animating={true}
-          style={[styles.centering, {height: 80}]}
-          size="large"
-        />
+        <View style={styles.container}>
+          <ActivityIndicatorIOS
+            animating={true}
+            style={[styles.centering, {height: 80}]}
+            size="large"
+          />
+        </View>
       );
     } else {
       return (

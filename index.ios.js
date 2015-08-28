@@ -26,14 +26,12 @@ class Highlights extends Component {
   render() {
     if(this.state.loggedIn) {
       return (
-        <View style={styles.container}>
-          <BooksView />
-        </View>
+        <BooksView />
       );
     } else {
       return (
         <View style={styles.container}>
-          <Login />
+          <Login onLogin={(loggedIn) => this.setState({loggedIn})} />
         </View>
       );
     }
