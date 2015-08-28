@@ -25,7 +25,7 @@ var {
 class Highlights extends Component {
   constructor(props) {
     super(props);
-    this.state = {loggedIn: true};
+    this.state = {loggedIn: false};
   }
 
   componentWillMount() {
@@ -81,15 +81,28 @@ class Highlights extends Component {
       );
     } else {
       return (
-        <View style={styles.appContainer}>
-          <Login onLogin={(loggedIn) => this.setState({loggedIn})} />
-        </View>
+        // <View style={{justifyContent: 'center'}}>
+          <View style={styles.container}>
+            <Login onLogin={(loggedIn) => this.setState({loggedIn})} />
+          </View>
+        //   <View><Text style={styles.info}>fooofoo</Text></View>
+        // </View>
       );
     }
   }
 }
 
 var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffffff'
+  },
+  // info: {
+  //   color: '#666666'
+  // },
   appContainer: {
     flex: 1,
     backgroundColor: '#ffffff'

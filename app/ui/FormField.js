@@ -15,7 +15,7 @@ class FormField extends Component {
     return (
       <View style={styles.labelContainer}>
         <View style={styles.label}>
-          <Text>{this.props.label}</Text>
+          <Text style={styles.text}>{this.props.label}</Text>
         </View>
         {this.props.children}
       </View>
@@ -33,6 +33,9 @@ var styles = StyleSheet.create({
     width: 250,
     alignItems: 'flex-start',
     paddingBottom: 3
+  },
+  text: {
+    color: '#666666'
   }
 });
 

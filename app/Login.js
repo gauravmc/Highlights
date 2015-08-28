@@ -50,7 +50,8 @@ var styles = StyleSheet.create({
   default: {
     height: 26,
     borderWidth: 0.5,
-    borderColor: '#0f0f0f',
+    borderRadius: 3,
+    borderColor: '#aaaaaa',
     flex: 1,
     fontSize: 13,
     padding: 4
