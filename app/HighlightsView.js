@@ -36,7 +36,7 @@ class HighlightsView extends Component {
     return (
       <View style={styles.listContainer}>
         <ListView
-          style={styles.list}
+          style={styles.listView}
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
         />
@@ -48,7 +48,7 @@ var styles = StyleSheet.create({
   listContainer: {
     flex: 1
   },
-  list: {
+  listView: {
     backgroundColor: '#eeeeee'
   },
   row: {

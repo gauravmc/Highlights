@@ -7,6 +7,7 @@
 'use strict';
 
 import React from 'react-native';
+import cssVar from 'cssVar';
 import BooksView from './app/BooksView';
 import HighlightsView from './app/HighlightsView';
 import Login from './app/Login';
@@ -16,7 +17,8 @@ var {
   Component,
   StyleSheet,
   Navigator,
-  View
+  View,
+  Text
 } = React;
 
 class Highlights extends Component {
@@ -25,11 +27,29 @@ class Highlights extends Component {
     this.state = {loggedIn: false};
   }
 
+  componentWillMount() {
+    this._navBarRouteMapper = {
+      LeftButton() {
+        return null;
+      },
+      RightButton() {
+        return null;
+      },
+      Title(route) {
+        return (
+          <Text style={styles.navBarTitleText}>{route.name}</Text>
+        );
+      }
+    };
+  }
+
+  _navBarRouteMapper: Object;
+
   renderScene(route, nav) {
     switch(route.name) {
-    case 'books':
+    case 'Books':
       return <BooksView navigator={nav} />;
-    case 'highlights':
+    case 'Highlights':
       return <HighlightsView navigator={nav} highlights={route.highlights} />;
     }
   }
@@ -38,8 +58,13 @@ class Highlights extends Component {
     if(this.state.loggedIn) {
       return (
         <Navigator
-          initialRoute={{ name: 'books'}}
+          style={styles.navBar}
+          initialRoute={{ name: 'Books'}}
+          navigationBar={
+            <Navigator.NavigationBar routeMapper={this._navBarRouteMapper} />
+          }
           renderScene={this.renderScene}
+          sceneStyle={styles.scene}
         />
       );
     } else {
@@ -59,6 +84,21 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF'
+  },
+  navBar: {
+    overflow: 'hidden',
+    backgroundColor: 'white',
+    flex: 1
+  },
+  navBarTitleText: {
+    fontSize: 14,
+    color: cssVar('fbui-bluegray-60'),
+    fontWeight: '500',
+    marginVertical: 9
+  },
+  scene: {
+    paddingTop: 60,
+    backgroundColor: '#eeeeee'
   }
 });
 

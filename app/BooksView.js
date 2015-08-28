@@ -61,7 +61,7 @@ var BooksView = React.createClass({
       <NavButton
         onPress={() => {
           this.props.navigator.push({
-            name: 'highlights',
+            name: 'Highlights',
             highlights: book.highlights,
             sceneConfig: Navigator.SceneConfigs.FloatFromRight
           });
@@ -108,8 +108,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#F5FCFF'
   },
   listView: {
-    paddingTop: 20,
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#bbbbbb'
   },
   centering: {
     alignItems: 'center',
