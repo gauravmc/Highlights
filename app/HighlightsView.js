@@ -1,11 +1,12 @@
 'use strict';
 
 import React from 'react-native';
+import LikeShare from './LikeShare';
+import RowWithSeparator from './ui/RowWithSeparator';
 
 var {
   Component,
   ListView,
-  PixelRatio,
   View,
   Text,
   PropTypes,
@@ -24,12 +25,12 @@ class HighlightsView extends Component {
   _renderRow(highlight) {
     return (
       <View style={styles.rowContainer}>
-        <View style={styles.row}>
+        <RowWithSeparator>
           <View style={styles.textContainer}>
             <Text style={styles.rowDetailText}>{highlight}</Text>
           </View>
-          <View style={styles.separator} />
-        </View>
+        </RowWithSeparator>
+        <LikeShare />
       </View>
     );
   }
@@ -55,10 +56,6 @@ var styles = StyleSheet.create({
   rowContainer: {
     flex: 1
   },
-  row: {
-    backgroundColor: 'white',
-    justifyContent: 'center'
-  },
   textContainer: {
     paddingTop: 10,
     paddingBottom: 10,
@@ -71,10 +68,6 @@ var styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '300',
     color: '#333333'
-  },
-  separator: {
-    height: 1 / PixelRatio.get(),
-    backgroundColor: '#eeeeee'
   }
 });
 
