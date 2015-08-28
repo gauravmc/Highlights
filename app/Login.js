@@ -7,6 +7,7 @@ var {
   Text,
   View,
   TextInput,
+  PropTypes,
   StyleSheet
 } = React;
 
@@ -78,5 +79,14 @@ var styles = StyleSheet.create({
     padding: 4
   }
 });
+
+WithLabel.propTypes = {
+  children: PropTypes.array.isRequired,
+  label: PropTypes.string.isRequired
+};
+
+Login.propTypes = {
+  onLogin: PropTypes.func
+};
 
 module.exports = Login;
