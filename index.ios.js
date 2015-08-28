@@ -8,25 +8,39 @@
 
 import React from 'react-native';
 import BooksView from './app/BooksView';
+import HighlightsView from './app/HighlightsView';
 import Login from './app/Login';
 
 var {
   AppRegistry,
   Component,
   StyleSheet,
+  Navigator,
   View
 } = React;
 
 class Highlights extends Component {
   constructor(props) {
     super(props);
-    this.state = {loggedIn: false};
+    this.state = {loggedIn: true};
+  }
+
+  renderScene(route, nav) {
+    switch(route.name) {
+    case 'books':
+      return <BooksView navigator={nav} />;
+    case 'highlights':
+      return <HighlightsView navigator={nav} />;
+    }
   }
 
   render() {
     if(this.state.loggedIn) {
       return (
-        <BooksView />
+        <Navigator
+          initialRoute={{ name: 'books'}}
+          renderScene={this.renderScene}
+        />
       );
     } else {
       return (

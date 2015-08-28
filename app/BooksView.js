@@ -2,13 +2,15 @@
 
 import React from 'react-native';
 import TimerMixin from 'react-timer-mixin';
+import NavButton from './ui/NavButton';
 
 var {
   StyleSheet,
   View,
-  TouchableHighlight,
   ListView,
   Image,
+  PropTypes,
+  Navigator,
   ActivityIndicatorIOS
 } = React;
 
@@ -54,15 +56,21 @@ var BooksView = React.createClass({
     }, 200);
   },
 
-  _renderRow(book, rowID: number) {
+  _renderRow(book) {
     return (
-      <TouchableHighlight onPress={() => console.log(rowID)} underlayColor="transparent">
+      <NavButton
+        onPress={() => {
+          this.props.navigator.push({
+            name: 'highlights',
+            sceneConfig: Navigator.SceneConfigs.FloatFromRight
+          });
+        }}>
         <View>
           <View style={styles.row}>
             <Image resizeMode={Image.resizeMode.contain} style={styles.thumb} source={{uri: book.image_src}} />
           </View>
         </View>
-      </TouchableHighlight>
+      </NavButton>
     );
   },
 
@@ -126,5 +134,9 @@ var styles = StyleSheet.create({
     height: 100
   }
 });
+
+BooksView.propTypes = {
+  navigator: PropTypes.object.isRequired
+};
 
 module.exports = BooksView;
