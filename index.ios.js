@@ -22,7 +22,7 @@ var {
 class Highlights extends Component {
   constructor(props) {
     super(props);
-    this.state = {loggedIn: true};
+    this.state = {loggedIn: false};
   }
 
   renderScene(route, nav) {
@@ -30,7 +30,7 @@ class Highlights extends Component {
     case 'books':
       return <BooksView navigator={nav} />;
     case 'highlights':
-      return <HighlightsView navigator={nav} />;
+      return <HighlightsView navigator={nav} highlights={route.highlights} />;
     }
   }
 

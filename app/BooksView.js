@@ -62,6 +62,7 @@ var BooksView = React.createClass({
         onPress={() => {
           this.props.navigator.push({
             name: 'highlights',
+            highlights: book.highlights,
             sceneConfig: Navigator.SceneConfigs.FloatFromRight
           });
         }}>
