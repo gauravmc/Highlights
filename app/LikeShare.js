@@ -15,7 +15,9 @@ var LIKED_IMAGE = 'https://dl.dropboxusercontent.com/u/45917215/highlights/liked
 class LikeShare extends Component {
   constructor(props) {
     super(props);
-    this.state = {liked: false};
+    this.state = {
+      liked: this.props.liked
+    };
   }
 
   buttonImage() {
@@ -27,11 +29,14 @@ class LikeShare extends Component {
   }
 
   _onPressButton() {
+    var likeState;
     if(this.state.liked) {
-      this.setState({liked: false});
+      likeState = false;
     } else {
-      this.setState({liked: true});
+      likeState = true;
     }
+    this.setState({liked: likeState});
+    this.props.onLike(this.props.highlightId, likeState);
   }
 
   likeButtonStyle() {

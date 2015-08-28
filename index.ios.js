@@ -59,7 +59,7 @@ class Highlights extends Component {
       return (
         <View style={{flex: 1}}>
           <View style={styles.separator} />
-          <HighlightsView navigator={nav} highlights={route.highlights} />
+          <HighlightsView navigator={nav} highlights={route.highlights} bookId={route.bookId} onHighlightChange={route.onHighlightChange} />
         </View>
       );
     }

@@ -22,15 +22,21 @@ class HighlightsView extends Component {
     };
   }
 
+  onHighligtLike(highlightId, liked) {
+    this.props.onHighlightChange(this.props.bookId, highlightId, liked);
+  }
+
   _renderRow(highlight) {
+    var highlightId = this.props.highlights.indexOf(highlight);
+
     return (
       <View style={styles.rowContainer}>
         <RowWithSeparator>
           <View style={styles.textContainer}>
-            <Text style={styles.rowDetailText}>{highlight}</Text>
+            <Text style={styles.rowDetailText}>{highlight.text}</Text>
           </View>
         </RowWithSeparator>
-        <LikeShare />
+        <LikeShare highlightId={highlightId} onLike={this.onHighligtLike.bind(this)} liked={highlight.liked} />
       </View>
     );
   }
@@ -41,7 +47,7 @@ class HighlightsView extends Component {
         style={styles.listView}
         dataSource={this.state.dataSource}
         automaticallyAdjustContentInsets={false}
-        renderRow={this._renderRow}
+        renderRow={this._renderRow.bind(this)}
       />
     );
   }

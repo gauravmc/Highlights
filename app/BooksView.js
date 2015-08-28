@@ -37,10 +37,10 @@ var BooksView = React.createClass({
       fetch(url)
         .then((response) => response.json())
         .then((responseData) => {
-          var rows = this.state.books.concat([responseData.book]);
+          var bookset = this.state.books.concat([responseData.book]);
           this.setState({
-            books: rows,
-            dataSource: this.state.dataSource.cloneWithRows(rows),
+            books: bookset,
+            dataSource: this.state.dataSource.cloneWithRows(this._prepareRows(bookset)),
             next_book_index: responseData.next_book_index,
             loaded: true
           });
@@ -61,13 +61,31 @@ var BooksView = React.createClass({
     }, 200);
   },
 
-  _renderRow(book) {
+  _prepareRows(books) {
+    var rows = [];
+    books.forEach(
+      (book) => {
+        rows.push([books.indexOf(book), book]);
+      }
+    );
+    return rows;
+  },
+
+  onHighlightChange(bookId, highlighId, liked) {
+    this.state.books[bookId].highlights[highlighId].liked = liked;
+    this.setState(this.state);
+  },
+
+  _renderRow(row) {
+    var [index, book] = row;
     return (
       <NavButton
         onPress={() => {
           this.props.navigator.push({
             name: 'Highlights',
             highlights: book.highlights,
+            bookId: index,
+            onHighlightChange: this.onHighlightChange,
             sceneConfig: Navigator.SceneConfigs.FloatFromRight
           });
         }}>
