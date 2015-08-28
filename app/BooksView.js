@@ -3,6 +3,7 @@
 import React from 'react-native';
 import TimerMixin from 'react-timer-mixin';
 import NavButton from './ui/NavButton';
+import SearchBar from 'react-native-search-bar';
 
 var {
   StyleSheet,
@@ -24,7 +25,8 @@ var BooksView = React.createClass({
       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
       next_book_index: 0,
       books: [],
-      loaded: false
+      loaded: false,
+      showSearch: false
     };
   },
 
@@ -98,6 +100,40 @@ var BooksView = React.createClass({
     );
   },
 
+  _filterBooks(search) {
+    var reg = new RegExp(search, 'i');
+    var filterdBooks = [];
+    this.state.books.forEach(
+      (book) => {
+        if(book.title.match(reg)) {
+          filterdBooks.push(book);
+        }
+      }
+    );
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(this._prepareRows(filterdBooks))
+    });
+  },
+
+  _handleScroll(e) {
+    if(e.nativeEvent.contentOffset.y < -40) {
+      this.setState({showSearch: true});
+    } else if(e.nativeEvent.contentOffset.y > 20) {
+      this.setState({showSearch: false});
+    }
+  },
+
+  renderSearchBar() {
+    if(this.state.showSearch) {
+      return (
+        <SearchBar
+          placeholder='Search'
+          onChangeText={(search) => this._filterBooks(search)}
+        />
+      );
+    }
+  },
+
   render() {
     if(!this.state.loaded) {
       return (
@@ -111,13 +147,18 @@ var BooksView = React.createClass({
       );
     } else {
       return (
-        <ListView
-          style={styles.listView}
-          contentContainerStyle={styles.list}
-          automaticallyAdjustContentInsets={false}
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-        />
+        <View style={{flex: 1}}>
+          {this.renderSearchBar()}
+          <ListView
+            style={styles.listView}
+            onScroll={this._handleScroll}
+            scrollEventThrottle={200}
+            contentContainerStyle={styles.list}
+            automaticallyAdjustContentInsets={false}
+            dataSource={this.state.dataSource}
+            renderRow={this._renderRow}
+          />
+        </View>
       );
     }
   }

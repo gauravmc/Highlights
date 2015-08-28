@@ -12,6 +12,7 @@
     "eslint-plugin-react": "^3.3.0",
     "flow": "^0.2.3",
     "react-native": "^0.10.0",
+    "react-native-search-bar": "^2.0.0",
     "react-timer-mixin": "^0.13.2"
   }
 }
